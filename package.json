@@ -1,0 +1,45 @@
+{
+  "name": "key-share",
+  "version": "1.0.0",
+  "description": "Securly transfer a private/public ssh key from machine to machine",
+  "main": "lib/index.js",
+  "scripts": {
+    "babel": "babel src --out-dir lib",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "npm run babel",
+    "example": "npm run babel && node example.js"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "author": "Wes Todd",
+  "license": "ISC",
+  "dependencies": {
+    "basic-auth": "^1.0.3",
+    "bonjour": "^2.0.0",
+    "commander": "^2.9.0",
+    "proxy-addr": "^1.0.10",
+    "mdns": "^2.2.11"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.3.17",
+    "babel-preset-es2015": "^6.3.13"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wesleytodd/key-share.git"
+  },
+  "keywords": [
+    "key",
+    "ssh",
+    "server",
+    "http",
+    "keypair"
+  ],
+  "bugs": {
+    "url": "https://github.com/wesleytodd/key-share/issues"
+  },
+  "homepage": "https://github.com/wesleytodd/key-share#readme"
+}

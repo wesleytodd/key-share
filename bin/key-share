@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+var app = require('commander');
+
+app.command('serve', 'Starts a key server and publishs a zeroconf service');
+app.command('get', 'Gets a key from a service');
+
+app.parse(process.argv);

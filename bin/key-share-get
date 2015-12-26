@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+var app = require('commander');
+var keyShare = require('../');
+var discover = keyShare.discover;
+var getKey = keyShare.getKey;
+
+app.option('-h, --host [host]', 'Host to get key from');
+app.option('-p, --port [port]', 'Port to run the proxy server on');
+app.option('-u, --user [user]', 'Username for auth', process.env.USER);
+app.option('-P, --pass [pass]', 'Password for auth');
+app.option('-s, --service-name [name]', 'Service name to look for');
+app.parse(process.argv);
+
+if (!app.pass) {
+	throw new TypeError('Password is required');
+}
+
+if (app.host && app.port) {
+	// Get from a specific service
+	getKeyFromService({
+		host: app.host,
+		port: app.port
+	});
+} else {
+	// Discover service and attempt get
+	var d = discover(app.serviceName);
+	d.on('serviceUp', getKeyFromService);
+}
+
+function getKeyFromService(service) {
+	getKey(service.host, service.port, app.user, app.pass, function(err, key) {
+		if (err) {
+			console.error(err);
+			process.exit(1);
+		}
+		console.log(key);
+		process.exit(0);
+	});
+}
