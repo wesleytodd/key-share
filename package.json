@@ -1,8 +1,11 @@
 {
   "name": "key-share",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Securly transfer a private/public ssh key from machine to machine",
   "main": "lib/index.js",
+  "bin": {
+    "key-share": "./bin/key-share"
+  },
   "scripts": {
     "babel": "babel src --out-dir lib",
     "test": "echo \"Error: no test specified\" && exit 1",
