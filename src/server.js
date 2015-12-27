@@ -8,8 +8,6 @@ export class KeyShareServer extends EventEmitter {
 	constructor(keys = [], opts = {}) {
 		super();
 		this.port = opts.port || null;
-		this.user = opts.user;
-		this.pass = opts.pass;
 		this.publish = typeof opts.publish !== 'undefined' ? opts.publish : true;
 		this.serviceName = opts.serviceName || 'KeyShareServer';
 		this.server = null;
