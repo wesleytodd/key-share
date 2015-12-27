@@ -1,26 +1,22 @@
-var mdns = require('mdns');
-var EventEmitter = require('events').EventEmitter;
+var bonjour = require('bonjour')();
 
-export function discover(name = 'KeyShareServer') {
-	var emitter = new EventEmitter();
-	var browser = mdns.createBrowser(mdns.tcp('http'));
+export function discover(name, done) {
+	if (typeof name === 'function' && !done) {
+		done = name;
+		name = 'KeyShareServer';
+	}
 
-	browser.on('serviceUp', function(service) {
-		if (service.name === name) {
-			emitter.emit('serviceUp', service);
+	var browser = bonjour.find({
+		type: 'http'
+	}, found);
+
+	function found(service) {
+		if (name && service.name !== name) {
+			return;
 		}
-	});
-	browser.on('serviceDown', function(service) {
-		if (service.name === name) {
-			emitter.emit('serviceDown', service);
-		}
-	});
-	browser.start();
+		browser.removeListener('up', found);
+		done && done(service);
+	}
 
-	// Add stop method to emitter
-	emitter.stop = function() {
-		browser.stop();
-	};
-
-	return emitter;
+	return browser;
 }

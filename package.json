@@ -10,6 +10,7 @@
     "babel": "babel src --out-dir lib",
     "test": "mocha",
     "prepublish": "npm run babel && npm run test",
+    "pretest": "npm run babel",
     "example": "npm run babel && node example.js"
   },
   "babel": {
@@ -21,9 +22,8 @@
   "license": "ISC",
   "dependencies": {
     "basic-auth": "^1.0.3",
-    "bonjour": "^2.0.0",
+    "bonjour": "git+ssh://git@github.com:watson/bonjour.git#v3.0.0",
     "commander": "^2.9.0",
-    "mdns": "^2.2.11",
     "proxy-addr": "^1.0.10"
   },
   "devDependencies": {

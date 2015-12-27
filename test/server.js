@@ -83,8 +83,7 @@ describe('KeyShareServer', function() {
 			pass: 'foo',
 			key: 'foo'
 		}]).listen(5000, function() {
-			var d = discover();
-			d.on('serviceUp', function(service) {
+			discover(function(service) {
 				assert.equal(service.port, 5000, 'Did not publish the right port');
 				done();
 			});

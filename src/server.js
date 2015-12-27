@@ -78,9 +78,8 @@ export class KeyShareServer extends EventEmitter {
 			return;
 		}
 
-		this.bonjourService = bonjour.tcp.publish({
+		this.bonjourService = bonjour.publish({
 			type: 'http',
-			protocol: 'tcp',
 			port: this.port,
 			name: this.serviceName
 		});
@@ -92,7 +91,7 @@ export class KeyShareServer extends EventEmitter {
 			this.server = null;
 		}
 		if (this.bonjourService) {
-			this.bonjourService.unpublish();
+			this.bonjourService.stop();
 			this.bonjourService = null;
 		}
 	}
