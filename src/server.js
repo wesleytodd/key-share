@@ -29,6 +29,11 @@ export class KeyShareServer extends EventEmitter {
 		if (this.server) {
 			return;
 		}
+		// Port is optional
+		if (typeof port === 'function') {
+			done = port;
+			port = this.port;
+		}
 
 		// Create the http server and proxy errors
 		this.server = http.createServer(this.handler.bind(this));
